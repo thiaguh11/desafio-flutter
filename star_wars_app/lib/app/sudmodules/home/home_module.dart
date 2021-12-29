@@ -8,6 +8,8 @@ import 'package:star_wars_app/app/sudmodules/home/infra/datasources/home_remote_
 import 'package:star_wars_app/app/sudmodules/home/infra/repositories/home_repository_impl.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/pages/home_page.dart';
 
+import 'ui/cubits/home_page_cubit.dart';
+
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
@@ -15,6 +17,7 @@ class HomeModule extends Module {
         Bind<IHomeRemoteDataSource>((i) => HomeRemoteDataSourceImpl(i())),
         Bind<IHomeRepository>((i) => HomeRepositoryImpl(i())),
         Bind<IPeople>((i) => People(i())),
+        Bind<HomePageCubit>((i) => HomePageCubit(i())),
       ];
 
   @override
