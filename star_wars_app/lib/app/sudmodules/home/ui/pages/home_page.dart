@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:star_wars_app/app/core/utils/dtos/custom_search_delegate.dart';
 import 'package:star_wars_app/app/core/widgets/default_scaffold.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/cubits/home_page_cubit.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/states/home_page_state.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _scrollController = ScrollController();
+  final HomePageCubit homePageCubit = Modular.get<HomePageCubit>();
 
   @override
   void initState() {
@@ -38,9 +40,25 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("StarWars"),
         centerTitle: true,
+        actions: <Widget>[
+          BlocBuilder(
+            bloc: homePageCubit,
+            builder: (ctx, state) => IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(
+                    state is Loaded ? state.peoples : [],
+                  ),
+                );
+              },
+            ),
+          )
+        ],
       ),
       body: (ctx, __) => BlocBuilder<HomePageCubit, HomePageState>(
-        bloc: Modular.get<HomePageCubit>(),
+        bloc: homePageCubit,
         builder: (context, state) {
           if (state is Loading) {
             return const Center(child: CircularProgressIndicator());
