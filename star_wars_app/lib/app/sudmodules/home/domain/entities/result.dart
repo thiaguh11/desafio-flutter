@@ -19,7 +19,7 @@ class Result<T> extends Equatable {
   @override
   bool? get stringify => true;
 
-  Result copyWith({
+  Result<T> copyWith({
     int? count,
     String? next,
     String? previous,

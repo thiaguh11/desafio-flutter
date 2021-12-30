@@ -1,7 +1,7 @@
 import 'package:star_wars_app/app/sudmodules/home/domain/entities/people_data.dart';
 
 abstract class PeopleDataDTO {
-  static PeopleData fromMap(Map<String, dynamic> map) {
+  static PeopleData fromMap(Map<dynamic, dynamic> map) {
     return PeopleData(
       name: map['name'],
       height: map['height'],
@@ -22,7 +22,7 @@ abstract class PeopleDataDTO {
     );
   }
 
-  static Map<String, dynamic> toMap(PeopleData peopleData) {
+  static Map<dynamic, dynamic> toMap(PeopleData peopleData) {
     return {
       'name': peopleData.name,
       'height': peopleData.height,

@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars_app/app/core/widgets/default_scaffold.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/cubits/home_page_cubit.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/states/home_page_state.dart';
-import 'package:star_wars_app/app/sudmodules/home/ui/widgets/bottom_loader.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/widgets/people_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll == currentScroll) {
       debugPrint("end!");
-      Modular.get<HomePageCubit>().fetchPeoples();
+      Modular.get<HomePageCubit>().fetchMore();
     }
   }
 
@@ -73,7 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    // _scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 }
