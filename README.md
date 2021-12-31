@@ -10,7 +10,7 @@ http://swapi.dev/
 
 http://docs.starwarsfavorites.apiary.io/#
 
-:heavy_check_mark: ### Lista de Personagens
+### :heavy_check_mark: Lista de Personagens
 
 Para obter os personagens, sua aplicação deverá utilizar o recurso `people` da Swapi (documentação disponível no topo do documento). A aplicação deve exibir todos os 87 personagens e permitir pesquisar o personagem pelo nome. Sugerimos exibir as primeiras páginas enquanto carrega as outras, em um formato de scroll infinito.
 
@@ -22,7 +22,7 @@ A lista de itens deve exibir as seguintes informações:
 
 Os dados devem ser salvos em banco de dados local para acesso offline e atualizados sempre que a tela for aberta.
 
-:heavy_check_mark: ### Detalhes do Personagem
+### :heavy_check_mark: Detalhes do Personagem
 
 Ao clicar em um item da lista o seu app deve mostrar as informações abaixo:
 
