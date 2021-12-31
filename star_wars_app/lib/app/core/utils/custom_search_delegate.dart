@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:star_wars_app/app/core/resources/strings/app_routes.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/entities/people_data.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/widgets/people_widget.dart';
 
@@ -50,7 +52,13 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         final people = filteredList[index];
-        return PeopleWidget(peopleData: people);
+        return PeopleWidget(
+          peopleData: people,
+          onTap: () => Modular.to.pushNamed(
+            "./${AppRoutes.peopleDetails}",
+            arguments: people,
+          ),
+        );
       },
       itemCount: filteredList.length,
     );

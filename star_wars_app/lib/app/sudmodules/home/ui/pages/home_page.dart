@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:star_wars_app/app/core/utils/dtos/custom_search_delegate.dart';
+import 'package:star_wars_app/app/core/resources/strings/app_routes.dart';
+import 'package:star_wars_app/app/core/utils/custom_search_delegate.dart';
 import 'package:star_wars_app/app/core/widgets/default_scaffold.dart';
-import 'package:star_wars_app/app/sudmodules/home/ui/cubits/home_page_cubit.dart';
-import 'package:star_wars_app/app/sudmodules/home/ui/states/home_page_state.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/cubits/peoples_cubit.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/states/peoples_state.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/widgets/people_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,13 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _scrollController = ScrollController();
-  final HomePageCubit homePageCubit = Modular.get<HomePageCubit>();
+  final PeoplesCubit peoplesCubit = Modular.get<PeoplesCubit>();
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    Modular.get<HomePageCubit>().fetchPeoples();
+    Modular.get<PeoplesCubit>().fetchPeoples();
   }
 
   void _onScroll() {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll == currentScroll) {
       debugPrint("end!");
-      Modular.get<HomePageCubit>().fetchMore();
+      Modular.get<PeoplesCubit>().fetchMore();
     }
   }
 
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: <Widget>[
           BlocBuilder(
-            bloc: homePageCubit,
+            bloc: peoplesCubit,
             builder: (ctx, state) => IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
@@ -57,8 +58,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: (ctx, __) => BlocBuilder<HomePageCubit, HomePageState>(
-        bloc: homePageCubit,
+      body: (ctx, __) => BlocBuilder<PeoplesCubit, PeoplesState>(
+        bloc: peoplesCubit,
         builder: (context, state) {
           if (state is Loading) {
             return const Center(child: CircularProgressIndicator());
@@ -73,7 +74,13 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.green,
                         ),
                       )
-                    : PeopleWidget(peopleData: state.peoples[index]);
+                    : PeopleWidget(
+                        peopleData: state.peoples[index],
+                        onTap: () => Modular.to.pushNamed(
+                          "./${AppRoutes.peopleDetails}",
+                          arguments: state.peoples[index],
+                        ),
+                      );
               },
               itemCount: !state.hasMoreResults
                   ? state.peoples.length

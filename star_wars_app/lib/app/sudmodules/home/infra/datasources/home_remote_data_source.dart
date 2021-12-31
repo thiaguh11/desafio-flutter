@@ -4,4 +4,5 @@ import 'package:star_wars_app/app/sudmodules/home/domain/entities/result.dart';
 
 abstract class IHomeRemoteDataSource {
   Future<Either<Exception, Result<PeopleData>>> getPeoples(int page);
+  Future<Either<Exception, Map<String, dynamic>>> getData(String url);
 }

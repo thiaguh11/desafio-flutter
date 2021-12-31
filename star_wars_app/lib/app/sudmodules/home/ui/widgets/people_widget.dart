@@ -5,11 +5,13 @@ import 'package:star_wars_app/app/sudmodules/home/domain/entities/people_data.da
 class PeopleWidget extends StatelessWidget {
   final PeopleData peopleData;
   final Color bgColor;
+  final void Function()? onTap;
 
   const PeopleWidget({
     Key? key,
     required this.peopleData,
     this.bgColor = Colors.white,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class PeopleWidget extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            onTap: () {},
+            onTap: onTap,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

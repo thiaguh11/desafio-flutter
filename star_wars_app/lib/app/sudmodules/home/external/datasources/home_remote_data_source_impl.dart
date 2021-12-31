@@ -26,4 +26,17 @@ class HomeRemoteDataSourceImpl implements IHomeRemoteDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Either<Exception, Map<String, dynamic>>> getData(
+    String url,
+  ) async {
+    try {
+      final response = await dio.get(url);
+
+      return Right(response.data);
+    } on Exception catch (_) {
+      rethrow;
+    }
+  }
 }

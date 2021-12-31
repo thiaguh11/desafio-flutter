@@ -48,4 +48,15 @@ class HomeRepositoryImpl implements IHomeRepository {
       return Left(e);
     }
   }
+
+  @override
+  Future<Either<Exception, Map<String, dynamic>>> getData(
+    String url,
+  ) async {
+    try {
+      return await remoteDataSource.getData(url);
+    } on Exception catch (e) {
+      return Left(e);
+    }
+  }
 }

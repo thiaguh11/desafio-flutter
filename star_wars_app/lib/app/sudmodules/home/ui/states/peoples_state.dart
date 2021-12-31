@@ -4,26 +4,26 @@ import 'package:flutter/foundation.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/entities/people_data.dart';
 
 @immutable
-abstract class HomePageState extends Equatable {
-  const HomePageState();
+abstract class PeoplesState extends Equatable {
+  const PeoplesState();
 }
 
-class Initial extends HomePageState {
+class Initial extends PeoplesState {
   @override
   List<Object?> get props => [];
 }
 
-class Loading extends HomePageState {
+class Loading extends PeoplesState {
   @override
   List<Object?> get props => [];
 }
 
-class Error extends HomePageState {
+class Error extends PeoplesState {
   @override
   List<Object?> get props => [];
 }
 
-class Loaded extends HomePageState {
+class Loaded extends PeoplesState {
   final List<PeopleData> peoples;
   final bool hasMoreResults;
 

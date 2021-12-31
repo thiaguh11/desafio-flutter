@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/entities/people_data.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/entities/result.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/usecases/people.dart';
-import 'package:star_wars_app/app/sudmodules/home/ui/states/home_page_state.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/states/peoples_state.dart';
 
-class HomePageCubit extends Cubit<HomePageState> {
+class PeoplesCubit extends Cubit<PeoplesState> {
   final IPeople peopleUsecase;
   int currentPage = 1;
 
-  HomePageCubit(this.peopleUsecase) : super(Initial());
+  PeoplesCubit(this.peopleUsecase) : super(Initial());
 
   void fetchPeoples() async {
     if (state is Initial) {

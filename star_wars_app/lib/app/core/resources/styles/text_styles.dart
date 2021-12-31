@@ -7,6 +7,12 @@ abstract class TextStyles {
     color: Colors.black,
   );
   
+  static const label = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.grey,
+  );
+  
   static const subtitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,

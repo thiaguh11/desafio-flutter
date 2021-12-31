@@ -1,16 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:star_wars_app/app/core/resources/strings/api_consts.dart';
+import 'package:star_wars_app/app/core/resources/strings/app_routes.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/repositories/home_repository.dart';
+import 'package:star_wars_app/app/sudmodules/home/domain/usecases/get_data.dart';
 import 'package:star_wars_app/app/sudmodules/home/domain/usecases/people.dart';
 import 'package:star_wars_app/app/sudmodules/home/external/datasources/home_local_data_source_impl.dart';
 import 'package:star_wars_app/app/sudmodules/home/external/datasources/home_remote_data_source_impl.dart';
 import 'package:star_wars_app/app/sudmodules/home/infra/datasources/home_local_data_source.dart';
 import 'package:star_wars_app/app/sudmodules/home/infra/datasources/home_remote_data_source.dart';
 import 'package:star_wars_app/app/sudmodules/home/infra/repositories/home_repository_impl.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/cubits/planets_cubit.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/cubits/species_cubit.dart';
 import 'package:star_wars_app/app/sudmodules/home/ui/pages/home_page.dart';
+import 'package:star_wars_app/app/sudmodules/home/ui/pages/people_details_page.dart';
 
-import 'ui/cubits/home_page_cubit.dart';
+import 'ui/cubits/peoples_cubit.dart';
 
 class HomeModule extends Module {
   @override
@@ -20,7 +25,10 @@ class HomeModule extends Module {
         Bind<IHomeLocalDataSource>((i) => HomeLocalDataSourceImpl()),
         Bind<IHomeRepository>((i) => HomeRepositoryImpl(i(), i())),
         Bind<IPeople>((i) => People(i())),
-        Bind<HomePageCubit>((i) => HomePageCubit(i())),
+        Bind<IGetData>((i) => GetData(i())),
+        Bind<PeoplesCubit>((i) => PeoplesCubit(i())),
+        Bind<PlanetsCubit>((i) => PlanetsCubit(i()), isSingleton: false),
+        Bind<SpeciesCubit>((i) => SpeciesCubit(i()), isSingleton: false),
       ];
 
   @override
@@ -28,6 +36,10 @@ class HomeModule extends Module {
         ChildRoute(
           Modular.initialRoute,
           child: (args, _) => const HomePage(),
+        ),
+        ChildRoute(
+          AppRoutes.peopleDetails,
+          child: (_, args) => PeopleDetailsPage(peopleData: args.data),
         ),
       ];
 }
